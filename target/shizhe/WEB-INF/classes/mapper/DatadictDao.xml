@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shizhe.dao.DatadictDao">
+  <resultMap id="BaseAddressMap" type="Address">
+    <result column="code" property="code" />
+    <result column="name" property="name" />
+    <result column="pcode" property="pcode" />
+    <result column="level" property="level" />
+  </resultMap>
+  <resultMap id="BaseJobtypeMap" type="Jobtype">
+    <result column="code" property="code" />
+    <result column="name" property="name" />
+    <result column="pcode" property="pcode" />
+    <collection property="subList" ofType="Jobtype">
+      <result column="subcode" property="code" />
+      <result column="subname" property="name" />
+      <result column="subpcode" property="pcode" />
+      <collection property="subList" ofType="Jobtype">
+        <result column="subsubcode" property="code" />
+        <result column="subsubname" property="name" />
+        <result column="subsubpcode" property="pcode" />
+      </collection>
+    </collection>
+  </resultMap>
+  <resultMap id="BaseLicenseMap" type="License">
+    <result column="pname" property="pname" />
+    <result column="name" property="name" />
+    <collection property="subList" ofType="License">
+      <result column="subname" property="name" />
+      <result column="subpname" property="pname" />
+      <collection property="subList" ofType="License">
+        <result column="subsubname" property="name" />
+        <result column="subsubpname" property="pname" />
+      </collection>
+    </collection>
+  </resultMap>
+  <resultMap id="BaseTradeMap" type="Trade">
+    <result column="code" property="code" />
+    <result column="name" property="name" />
+    <result column="pcode" property="pcode" />
+    <collection property="subList" ofType="Trade">
+      <result column="subcode" property="code" />
+      <result column="subname" property="name" />
+      <result column="subpcode" property="pcode" />
+    </collection>
+  </resultMap>
+  <!--<sql id="addressInfo">-->
+      <!--code, `name`, pcode,-->
+      <!--`level`-->
+    <!--</sql>-->
+  <insert id="insertAddress" parameterType="shizhe.bean.Address">
+    insert into address (code, `name`, pcode, 
+      `level`)
+    values (#{code}, #{name}, #{pcode},
+      #{level})
+  </insert>
+  <select id="selectAddress" parameterType="map" resultMap="BaseAddressMap">
+    select * from address
+    where `level`=#{level} and pcode=#{pcode}
+  </select>
+  <select id="selectByCode" parameterType="map" resultMap="BaseAddressMap">
+    select * from address
+    where code=#{code}
+  </select>
+  <delete id="deleteAddress">
+    delete from address
+  </delete>
+  <select id="selectAddressByCode" parameterType="map" resultType="java.lang.String">
+    select CONCAT(c.name,b.name,a.name) from address a
+    left join address b on a.pcode=b.code
+    left join address c on b.pcode=c.code
+    where a.code=#{code}
+  </select>
+  <insert id="insertJobtype" parameterType="shizhe.bean.Jobtype">
+    insert into jobtype (code, `name`, pcode)
+    values (#{code}, #{name}, #{pcode})
+  </insert>
+  <select id="selectJobtype" parameterType="map" resultMap="BaseJobtypeMap">
+    select a.`code`,a.`name`,a.pcode,
+    b.`code` as subcode,b.`name` as subname,b.pcode as subpcode,
+    c.`code` as subsubcode,c.`name` as subsubname,c.pcode as subsubpcode from jobtype a
+    LEFT JOIN jobtype b on a.`code`=b.pcode
+    left join jobtype c on b.`code`=c.pcode
+    where a.`pcode`="1";
+  </select>
+  <delete id="deleteJobtype">
+    delete from jobtype
+  </delete>
+
+  <insert id="insertLicense" parameterType="shizhe.bean.License">
+    insert into license (pname, `name`)
+    values (#{pname}, #{name})
+  </insert>
+  <select id="selectLicense" resultMap="BaseLicenseMap">
+    select a.pname,a.`name`,
+    b.pname as subpname,b.`name` as subname,
+    c.pname as subsubpname,c.`name` as subsubname from license a
+    LEFT JOIN license b on a.`name`=b.pname
+    left join license c on b.`name`=c.pname
+    where a.pname="";
+  </select>
+  <delete id="deleteLicense">
+    delete from license
+  </delete>
+
+  <insert id="insertTrade" parameterType="shizhe.bean.Trade">
+    insert into trade (code, `name`, pcode)
+    values (#{code}, #{name}, #{pcode})
+  </insert>
+  <select id="selectTrade" resultMap="BaseTradeMap">
+    select a.`code`,a.`name`,a.pcode,b.`code` as subcode,b.`name` as subname,b.pcode as subpcode from trade a
+    LEFT JOIN trade b on a.`code`=b.pcode
+    where a.pcode="1";
+  </select>
+  <delete id="deleteTrade">
+    delete from trade
+  </delete>
+</mapper>

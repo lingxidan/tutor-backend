@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shizhe.dao.PostMsgDao">
+  <resultMap id="BasePostMsgMap" type="Comment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="dt" jdbcType="DATE" property="dt" />
+    <result column="post_id" jdbcType="INTEGER" property="mainId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, msg, dt, post_id, `status`
+  </sql>
+  <select id="selectByCondition" parameterType="java.lang.Integer" resultMap="BasePostMsgMap">
+    select
+    <include refid="Base_Column_List" />
+    from post_msg
+    <where>
+      1 = 1
+      <if test="mainId != null and mainId != ''">
+        AND post_id = #{mainId}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BasePostMsgMap">
+    select 
+    <include refid="Base_Column_List" />
+    from post_msg
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from post_msg
+    where id = #{id}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Comment">
+    insert into post_msg (user_id, msg,
+      dt, post_id, `status`)
+    values (#{userId}, #{msg},
+      #{dt}, #{mainId}, #{status})
+  </insert>
+  <update id="updateMsg" parameterType="shizhe.bean.Comment">
+    update post_msg
+    set `status` = #{status}
+    where id = #{id}
+  </update>
+</mapper>
