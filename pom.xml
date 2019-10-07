@@ -42,6 +42,8 @@
           <target>${java.version}</target>
           <encoding>${project.build.sourceEncoding}</encoding>
           <compilerArguments>
+              <!-- <extdirs>${basedir}/WebRoot/WEB-INF/lib</extdirs> -->
+            <extdirs>${basedir}/src/main/webapp/WEB-INF/lib</extdirs>
             <verbose/>
             <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
           </compilerArguments>
