@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shizhe.dao.ExpectJobDao">
+  <resultMap id="BaseExpectJobMap" type="ExpectJob">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="addrs" jdbcType="VARCHAR" property="addrs" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, addrs, user_id
+  </sql>
+  <select id="selectByCondition" resultMap="BaseExpectJobMap">
+    select
+    <include refid="Base_Column_List" />
+    from expect_job
+    <where>
+      1 = 1
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId}
+      </if>
+    </where>
+  </select>
+  <insert id="insertExpectJob" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.ExpectJob">
+    insert into expect_job (`name`, addrs, 
+      user_id)
+    values ( #{name}, #{addrs}, 
+      #{userId})
+  </insert>
+  <update id="updateExpectJob" parameterType="shizhe.bean.ExpectJob">
+    update expect_job
+    set `name` = #{name},
+      addrs = #{addrs},
+      user_id = #{userId}
+    where id = #{id}
+  </update>
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from expect_job
+    where id = #{id}
+  </delete>
+</mapper>
