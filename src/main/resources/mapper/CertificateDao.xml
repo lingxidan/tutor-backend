@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.CertificateDao">
-  <resultMap id="BaseCertificateMap" type="Certificate">
+<mapper namespace="shizhe.dao.CertificateDAO">
+  <resultMap id="BaseCertificateMap" type="shizhe.bean.Certificate">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="name" jdbcType="LONGVARCHAR" property="name" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, `name`, user_id
   </sql>
   <select id="selectByCondition" parameterType="java.lang.Integer" resultMap="BaseCertificateMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from certificate
     <where>
@@ -21,13 +21,12 @@
     </where>
   </select>
   <insert id="insertCertificate" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Certificate">
-    insert into certificate (`name`, user_id
-      )
+    insert into certificate (`name`, user_id)
     values (#{name}, #{userId})
   </insert>
   <update id="updateByUserId" parameterType="shizhe.bean.Certificate">
     update certificate
     set `name` = #{name}
-    where user_id = #{userId}
+    where id = #{id}
   </update>
 </mapper>

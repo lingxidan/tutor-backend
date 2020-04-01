@@ -24,18 +24,18 @@ public class ExpectJobController {
     @Resource
     ExpectJobService expectJobService;
 
-//    @ApiOperation(value = "查看期望岗位详情", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @GetMapping("/selectById")
-//    @ResponseBody
-//    public ApiResult selectById(int expectJobId){
-//        ApiResult<Object> result = new ApiResult<>();
-//        ExpectJob expectJob=expectJobService.selectById(expectJobId);
-//        result.setStatus(StatusCode.SC_SUCCESS);
-//        result.setData(expectJob);
-//        return result;
-//    }
+    @ApiOperation(value = "查看期望岗位详情", produces = MediaType.ALL_VALUE)
+    @GetMapping("/selectById")
+    @ResponseBody
+    public ApiResult selectById(int expectJobId){
+        ApiResult<Object> result = new ApiResult<>();
+        ExpectJob expectJob=expectJobService.selectById(expectJobId);
+        result.setStatus(StatusCode.SC_SUCCESS);
+        result.setData(expectJob);
+        return result;
+    }
 
-    @ApiOperation(value = "根据条件筛选期望岗位", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "根据条件筛选期望岗位", produces = MediaType.ALL_VALUE)
     @GetMapping("/selectByCondition")
     @ResponseBody
     public ApiResult selectByCondition(String userId){
@@ -46,7 +46,7 @@ public class ExpectJobController {
         return result;
     }
 
-    @ApiOperation(value = "增加期望岗位", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "增加期望岗位", produces = MediaType.ALL_VALUE)
     @GetMapping("/insertExpectJob")
     @DateTimeFormat(pattern = "yyyyMMdd")
     @ResponseBody
@@ -58,7 +58,7 @@ public class ExpectJobController {
         return result;
     }
 
-    @ApiOperation(value = "更新期望岗位", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "更新期望岗位", produces = MediaType.ALL_VALUE)
     @GetMapping("/updateExpectJob")
     @ResponseBody
     public ApiResult updateExpectJob(ExpectJob expectJob){
@@ -69,7 +69,7 @@ public class ExpectJobController {
         return result;
     }
 
-    @ApiOperation(value = "删除期望岗位", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "删除期望岗位", produces = MediaType.ALL_VALUE)
     @PostMapping("/deleteExpectJob")
     @ResponseBody
     public ApiResult deleteExpectJob(int id){

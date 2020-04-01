@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.ExpectJobDao">
-  <resultMap id="BaseExpectJobMap" type="ExpectJob">
+<mapper namespace="shizhe.dao.ExpectJobDAO">
+  <resultMap id="BaseResultMap" type="shizhe.bean.ExpectJob">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="addrs" jdbcType="VARCHAR" property="addrs" />
@@ -10,7 +10,7 @@
   <sql id="Base_Column_List">
     id, `name`, addrs, user_id
   </sql>
-  <select id="selectByCondition" resultMap="BaseExpectJobMap">
+  <select id="selectByCondition" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from expect_job
@@ -22,16 +22,15 @@
     </where>
   </select>
   <insert id="insertExpectJob" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.ExpectJob">
-    insert into expect_job (`name`, addrs, 
+    insert into expect_job (`name`, addrs,
       user_id)
-    values ( #{name}, #{addrs}, 
+    values ( #{name}, #{addrs},
       #{userId})
   </insert>
   <update id="updateExpectJob" parameterType="shizhe.bean.ExpectJob">
     update expect_job
     set `name` = #{name},
-      addrs = #{addrs},
-      user_id = #{userId}
+      addrs = #{addrs}
     where id = #{id}
   </update>
   <delete id="deleteById" parameterType="java.lang.Integer">

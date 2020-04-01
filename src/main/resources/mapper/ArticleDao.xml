@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.ArticleDao">
+<mapper namespace="shizhe.dao.ArticleDAO">
   <resultMap id="BaseArticleMap" type="shizhe.bean.Article">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="establish_dt" jdbcType="DATE" property="establishDt" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
-    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
-    <result column="reason" jdbcType="VARCHAR" property="reason" />
-    <result column="result" jdbcType="VARCHAR" property="result" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-  </resultMap>
-  <resultMap extends="BaseArticleMap" id="ResultMapWithBLOBs" type="shizhe.bean.Article">
+    <result column="imgs" jdbcType="LONGVARCHAR" property="imgs" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, establish_dt, author_id, imgs, reason, `result`,status
-  </sql>
-  <sql id="Blob_Column_List">
-    content
+    id, title, establish_dt, author_id, imgs, content
   </sql>
   <select id="selectByCondition" resultMap="BaseArticleMap">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from article
     <where>
       1 = 1
@@ -32,39 +22,34 @@
         AND author_id = #{userId}
       </if>
       <if test="keyword != null and keyword != ''">
-        AND `title` LIKE '%' || #{keyword} ||'%'
+        AND `title` LIKE CONCAT(CONCAT('%', #{keyword}), '%')
       </if>
       <if test="establishDt != null and establishDt != ''">
         AND establish_dt = #{establishDt}
       </if>
-      <if test="status != null and status != ''">
-        AND status = #{status}
-      </if>
     </where>
+    order by id desc
   </select>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseArticleMap">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from article
     where id = #{id}
   </select>
+  <delete id="deleteArticle" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id}
+  </delete>
   <insert id="insertArticle" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Article">
     insert into article (title, establish_dt,
-      author_id, imgs, reason, 
-      `result`, content, status)
+      author_id, imgs, content)
     values (#{title}, #{establishDt},
-      #{authorId}, #{imgs}, #{reason}, 
-      #{result}, #{content},#{status})
+      #{authorId}, #{imgs}, #{content})
   </insert>
   <update id="updateArticle" parameterType="shizhe.bean.Article">
     update article
     set title = #{title},
       imgs = #{imgs},
-      reason = #{reason},
-      `result` = #{result},
-      status = #{status},
       content = #{content}
     where id = #{id}
   </update>

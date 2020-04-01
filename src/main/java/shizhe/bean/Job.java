@@ -1,6 +1,11 @@
 package shizhe.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * job
@@ -25,11 +30,12 @@ public class Job implements Serializable {
 
     private Integer status;
 
-    private String establishDt;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date establishDt;
 
-    private String reason;
-
-    private String result;
+    private String jobInsure;
 
     private static final long serialVersionUID = 1L;
 
@@ -105,27 +111,19 @@ public class Job implements Serializable {
         this.status = status;
     }
 
-    public String getEstablishDt() {
+    public Date getEstablishDt() {
         return establishDt;
     }
 
-    public void setEstablishDt(String establishDt) {
+    public void setEstablishDt(Date establishDt) {
         this.establishDt = establishDt;
     }
 
-    public String getReason() {
-        return reason;
+    public String getJobInsure() {
+        return jobInsure;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
+    public void setJobInsure(String jobInsure) {
+        this.jobInsure = jobInsure;
     }
 }

@@ -2,20 +2,21 @@ package shizhe.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import shizhe.bean.Comment;
+import shizhe.bean.ArticleMsg;
 
 import java.util.List;
 
+/**
+ * ArticleMsgDAO继承基类
+ */
 @Repository
-public interface ArticleMsgDao {
+public interface ArticleMsgDAO extends MyBatisBaseDao<ArticleMsg, Integer> {
 
-    List<Comment> selectByCondition(@Param("userId") String userId,
-                                    @Param("mainId") String mainId);
+    List<ArticleMsg> selectByCondition(@Param("userId") Integer userId,
+                                       @Param("mainId") String mainId);
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Comment record);
+    int insert(ArticleMsg record);
 
-    Comment selectByPrimaryKey(Integer id);
-    
-    int updateMsg(Comment record);
+    ArticleMsg selectByPrimaryKey(Integer id);
 }

@@ -20,7 +20,7 @@ import java.util.Map;
 public class DatadictController {
     @Autowired
     @Resource
-    DatadictService addressService;
+    DatadictService datadictService;
 
     @ApiOperation(value = "导入地址数据", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/insertAddress")
@@ -28,8 +28,8 @@ public class DatadictController {
 
         ApiResult<Object> result = new ApiResult<>();
         Long res = -1L;
-        res = addressService.deleteAddress();
-        res = addressService.insertAddress();
+        res = datadictService.deleteAddress();
+        res = datadictService.insertAddress();
         Map map = new HashMap();
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
@@ -47,7 +47,20 @@ public class DatadictController {
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
 //        map.put("data",);
-        result.setData(addressService.selectAddress(level, pcode));
+        result.setData(datadictService.selectAddress(level, pcode));
+        return result;
+    }
+
+    @ApiOperation(value = "获取省市区县名称", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/selectAddressByCode")
+    public ApiResult selectAddressByCode(String code){
+
+        ApiResult<Object> result = new ApiResult<>();
+//        Map map = new HashMap();
+//        List<User> list = userService.getAll();
+        result.setStatus(StatusCode.SC_SUCCESS);
+//        map.put("data",);
+        result.setData(datadictService.selectAddressByCode(code));
         return result;
     }
 
@@ -57,8 +70,8 @@ public class DatadictController {
 
         ApiResult<Object> result = new ApiResult<>();
         Long res = -1L;
-        res = addressService.deleteJobType();
-        res = addressService.insertJobtype();
+        res = datadictService.deleteJobType();
+        res = datadictService.insertJobtype();
         Map map = new HashMap();
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
@@ -76,7 +89,7 @@ public class DatadictController {
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
 //        map.put("data",);
-        result.setData(addressService.selectJobtype());
+        result.setData(datadictService.selectJobtype());
         return result;
     }
 
@@ -86,8 +99,8 @@ public class DatadictController {
 
         ApiResult<Object> result = new ApiResult<>();
         Long res = -1L;
-        res = addressService.deleteTrade();
-        res = addressService.insertTrade();
+        res = datadictService.deleteTrade();
+        res = datadictService.insertTrade();
         Map map = new HashMap();
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
@@ -105,7 +118,7 @@ public class DatadictController {
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
 //        map.put("data",);
-        result.setData(addressService.selectTrade());
+        result.setData(datadictService.selectTrade());
         return result;
     }
 
@@ -115,8 +128,8 @@ public class DatadictController {
 
         ApiResult<Object> result = new ApiResult<>();
         Long res = -1L;
-        res = addressService.deleteLicense();
-        res = addressService.insertLicense();
+        res = datadictService.deleteLicense();
+        res = datadictService.insertLicense();
         Map map = new HashMap();
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
@@ -134,7 +147,7 @@ public class DatadictController {
 //        List<User> list = userService.getAll();
         result.setStatus(StatusCode.SC_SUCCESS);
 //        map.put("data",);
-        result.setData(addressService.selectLicense());
+        result.setData(datadictService.selectLicense());
         return result;
     }
 }

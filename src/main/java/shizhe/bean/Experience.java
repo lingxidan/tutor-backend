@@ -1,6 +1,9 @@
 package shizhe.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * experience
@@ -11,7 +14,8 @@ public class Experience implements Serializable {
 
     private String companyName;
 
-    private String startDt;
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    private Date startDt;
 
     private String endDt;
 
@@ -19,29 +23,13 @@ public class Experience implements Serializable {
 
     private String jobName;
 
-    private String userId;
-
     private String task;
 
     private String performance;
 
+    private String userId;
+
     private static final long serialVersionUID = 1L;
-
-    public String getTask() {
-        return task;
-    }
-
-    public void setTask(String task) {
-        this.task = task;
-    }
-
-    public String getPerformance() {
-        return performance;
-    }
-
-    public void setPerformance(String performance) {
-        this.performance = performance;
-    }
 
     public Integer getId() {
         return id;
@@ -59,11 +47,11 @@ public class Experience implements Serializable {
         this.companyName = companyName;
     }
 
-    public String getStartDt() {
+    public Date getStartDt() {
         return startDt;
     }
 
-    public void setStartDt(String startDt) {
+    public void setStartDt(Date startDt) {
         this.startDt = startDt;
     }
 
@@ -89,6 +77,22 @@ public class Experience implements Serializable {
 
     public void setJobName(String jobName) {
         this.jobName = jobName;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public String getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(String performance) {
+        this.performance = performance;
     }
 
     public String getUserId() {

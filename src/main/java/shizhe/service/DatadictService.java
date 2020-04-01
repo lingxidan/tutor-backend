@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 import shizhe.bean.Address;
 import shizhe.bean.Jobtype;
 import shizhe.bean.License;
-import shizhe.bean.Trade;
-import shizhe.dao.DatadictDao;
+import shizhe.bean.Company;
+import shizhe.dao.DatadictDAO;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-@Service("AddressService")
+@Service("DatadictService")
 public class DatadictService {
 
     @Autowired
-    DatadictDao datadictDao;
+    DatadictDAO datadictDao;
     public Long insertAddress() throws IOException {
         String path="D:\\code\\git\\shizhe\\src\\test\\java\\files\\province.json";
         BufferedReader br = new BufferedReader(
@@ -98,7 +98,7 @@ public class DatadictService {
         JSONArray links = jobj.getJSONArray("zpData");
         for (int i = 0 ; i < links.size();i++){
             JSONObject key1 = (JSONObject)links.get(i);
-            Trade trade=new Trade();
+            Company trade=new Company();
             trade.setCode(key1.get("code").toString());
             trade.setName((String)key1.get("name"));
             trade.setPcode("1");
@@ -108,7 +108,7 @@ public class DatadictService {
             if(subLinks!=null) {
                 for (int j = 0; j < subLinks.size(); j++) {
                     JSONObject key2 = (JSONObject) subLinks.get(j);
-                    Trade tradeSub = new Trade();
+                    Company tradeSub = new Company();
                     tradeSub.setCode(key2.get("code").toString());
                     tradeSub.setName((String) key2.get("name"));
                     tradeSub.setPcode(trade.getCode());
@@ -125,7 +125,7 @@ public class DatadictService {
         return 1L;
     }
 
-    public List<Trade> selectTrade(){
+    public List<Company> selectTrade(){
         return datadictDao.selectTrade();
 //        return 1L;
     }

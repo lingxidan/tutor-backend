@@ -1,33 +1,29 @@
 package shizhe.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * article_msg
  * @author 
  */
-public class Comment implements Serializable {
+public class ArticleMsg implements Serializable {
     private Integer id;
 
     private Integer userId;
 
-    private String dt;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date dt;
 
-    private Integer mainId;
-
-    private Integer status;
+    private Integer articleId;
 
     private String msg;
-
-    private Integer type;
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
 
     private static final long serialVersionUID = 1L;
 
@@ -47,28 +43,20 @@ public class Comment implements Serializable {
         this.userId = userId;
     }
 
-    public String getDt() {
+    public Date getDt() {
         return dt;
     }
 
-    public void setDt(String dt) {
+    public void setDt(Date dt) {
         this.dt = dt;
     }
 
-    public Integer getMainId() {
-        return mainId;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setMainId(Integer mainId) {
-        this.mainId = mainId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getMsg() {

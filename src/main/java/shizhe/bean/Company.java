@@ -1,21 +1,19 @@
 package shizhe.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * trade
+ * company
  * @author 
  */
-public class Trade implements Serializable {
+public class Company implements Serializable {
     private String code;
 
     private String name;
 
     private String pcode;
 
-    private List<Trade> subList=new ArrayList<>();
+    private static final long serialVersionUID = 1L;
 
     public String getCode() {
         return code;
@@ -39,13 +37,5 @@ public class Trade implements Serializable {
 
     public void setPcode(String pcode) {
         this.pcode = pcode;
-    }
-
-    public List<Trade> getSubList() {
-        return subList;
-    }
-
-    public void setSubList(List<Trade> subList) {
-        this.subList = subList;
     }
 }

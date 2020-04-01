@@ -24,17 +24,6 @@ public class ExperienceController {
     @Resource
     ExperienceService experienceService;
 
-//    @ApiOperation(value = "查看工作经历详情", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @GetMapping("/selectById")
-//    @ResponseBody
-//    public ApiResult selectById(int experienceId){
-//        ApiResult<Object> result = new ApiResult<>();
-//        Experience experience=experienceService.selectById(experienceId);
-//        result.setStatus(StatusCode.SC_SUCCESS);
-//        result.setData(experience);
-//        return result;
-//    }
-
     @ApiOperation(value = "根据条件筛选工作经历", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/selectByCondition")
     @ResponseBody
@@ -48,7 +37,6 @@ public class ExperienceController {
 
     @ApiOperation(value = "增加工作经历", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/insertExperience")
-    @DateTimeFormat(pattern = "yyyyMMdd")
     @ResponseBody
     public ApiResult insertExperience(Experience experience){
         ApiResult<Object> result = new ApiResult<>();

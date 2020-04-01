@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shizhe.dao.AccusationDAO">
+  <resultMap id="BaseResultMap" type="shizhe.bean.Accusation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="accuse_id" jdbcType="INTEGER" property="accuseId" />
+    <result column="accuse_type" jdbcType="INTEGER" property="accuseType" />
+    <result column="accuse_result" jdbcType="INTEGER" property="accuseResult" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, accuse_id, accuse_type, accuse_result
+  </sql>
+  <select id="selectByCondition" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from accusation
+    <where>
+      1 = 1
+      <if test="accuseId != null and accuseId != ''">
+        AND accuse_id = #{accuseId}
+      </if>
+      <if test="accuseType != null and accuseType != ''">
+        AND accuse_type = #{accuseType}
+      </if>
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId}
+      </if>
+      <if test="accuseResult != null">
+        AND accuse_result = #{accuseResult}
+      </if>
+    </where>
+    order by id desc
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Accusation">
+    insert into accusation (user_id, accuse_id, 
+      accuse_type, accuse_result)
+    values (#{userId}, #{accuseId}, 
+      #{accuseType}, #{accuseResult})
+  </insert>
+  <update id="update" parameterType="java.lang.Integer">
+    update accusation
+    set accuse_result = #{accuseResult}
+    where id = #{id}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from accusation
+    where id = #{id}
+  </delete>
+</mapper>

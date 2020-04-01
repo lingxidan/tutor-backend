@@ -3,28 +3,24 @@ package shizhe.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shizhe.bean.ExpectJob;
-import shizhe.bean.School;
-import shizhe.dao.DatadictDao;
-import shizhe.dao.ExpectJobDao;
-import shizhe.dao.SchoolDao;
+import shizhe.dao.DatadictDAO;
+import shizhe.dao.ExpectJobDAO;
+//import shizhe.dao_bak.SchoolDao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service("ExpectJobService")
 public class ExpectJobService {
     @Autowired
-    ExpectJobDao expectJobDao;
+    ExpectJobDAO expectJobDao;
     @Autowired
-    DatadictDao datadictDao;
-    @Autowired
-    SchoolDao schoolDao;
+    DatadictDAO datadictDao;
+//    @Autowired
+//    SchoolDao schoolDao;
     // 查询
     public ExpectJob selectById(int id){
-        ExpectJob expectJob=expectJobDao.selectById(id);
-        return expectJob;
+        return expectJobDao.selectById(id);
     }
     public List<ExpectJob> selectByCondition(String userId){
         List<ExpectJob> expectJobList=expectJobDao.selectByCondition(userId);

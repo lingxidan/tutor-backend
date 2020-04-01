@@ -1,152 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.UserDao">
-  
-  <resultMap id="BaseResultMap" type="User">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="CHAR" property="name" />
-    <result column="password" jdbcType="CHAR" property="password" />
-    <result column="idcard" jdbcType="CHAR" property="idcard" />
-    <result column="phone" jdbcType="CHAR" property="phone" />
-    <result column="email" jdbcType="CHAR" property="email" />
-    <result column="address" jdbcType="CHAR" property="address" />
+<mapper namespace="shizhe.dao.UserDAO">
+  <resultMap id="BaseVolunteerMap" type="shizhe.bean.Volunteer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="regsitedt" jdbcType="DATE" property="regsitedt" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="certificate" jdbcType="INTEGER" property="certificate" />
   </resultMap>
-  <select id="getAll" resultType="shizhe.bean.User">
+  <resultMap id="BaseRecruiterMap" type="shizhe.bean.Recruiter">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="regsitedt" jdbcType="DATE" property="regsitedt" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    
+    <result column="identify" jdbcType="VARCHAR" property="identify" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_phone" jdbcType="VARCHAR" property="companyPhone" />
+  </resultMap>
+  <resultMap id="BaseUserMap" type="shizhe.bean.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="regsitedt" jdbcType="DATE" property="regsitedt" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+  </resultMap>
+  <select id="login" parameterType="java.lang.String" resultMap="BaseUserMap">
     select * from user
+    WHERE (idcard=#{name} or email=#{name} or phone=#{name})
+    and `password`=#{password}
   </select>
-  <select id="login" parameterType="java.lang.String" resultType="shizhe.bean.User">
-    select * from user WHERE
-    (email=#{name} and `password`=#{password})
-    or (phone=#{name} and `password`=#{password})
-  </select>
-  <!--<select id="registe" parameterType="shizhe.bean.User" resultType="shizhe.bean.User">-->
-     <!--insert into user (`name`, `password`,-->
-      <!--idcard, phone, email,-->
-      <!--address)-->
-    <!--values (#{name}, #{password},-->
-      <!--#{idcard}, #{phone}, #{email},-->
-      <!--#{address})-->
-  <!--</select>-->
-  <insert id="registe" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.User">
+  <insert id="registeUser" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.User">
     insert into user (`name`, `password`,
       idcard, phone, email,
-      address, regsitedt)
+      address, regsitedt, user_type)
     values (#{name}, #{password},
       #{idcard}, #{phone}, #{email},
-      #{address},#{regsitedt})
+      #{address},#{regsitedt}, #{userType})
   </insert>
-  <!--<sql id="Base_Column_List">-->
-    <!--id, `name`, `password`, idcard, phone, email, address-->
-  <!--</sql>-->
-  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">-->
-    <!--select -->
-    <!--<include refid="Base_Column_List" />-->
-    <!--from user-->
-    <!--where id = #{id}-->
-  <!--</select>-->
-  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">-->
-    <!--delete from user-->
-    <!--where id = #{id}-->
-  <!--</delete>-->
-  <!--<insert id="insert" parameterType="shizhe.dao.UserDAO">-->
-    <!--insert into user (id, `name`, `password`, -->
-      <!--idcard, phone, email, address-->
-      <!--)-->
-    <!--values (#{id}, #{name}, #{password}, -->
-      <!--#{idcard}, #{phone}, #{email}, #{address}-->
-      <!--)-->
-  <!--</insert>-->
-  <!--<insert id="insertSelective" parameterType="shizhe.beanser">-->
-    <!--insert into user-->
-    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-      <!--<if test="id != null">-->
-        <!--id,-->
-      <!--</if>-->
-      <!--<if test="name != null">-->
-        <!--`name`,-->
-      <!--</if>-->
-      <!--<if test="password != null">-->
-        <!--`password`,-->
-      <!--</if>-->
-      <!--<if test="idcard != null">-->
-        <!--idcard,-->
-      <!--</if>-->
-      <!--<if test="phone != null">-->
-        <!--phone,-->
-      <!--</if>-->
-      <!--<if test="email != null">-->
-        <!--email,-->
-      <!--</if>-->
-      <!--<if test="address != null">-->
-        <!--address,-->
-      <!--</if>-->
-    <!--</trim>-->
-    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-      <!--<if test="id != null">-->
-        <!--#{id},-->
-      <!--</if>-->
-      <!--<if test="name != null">-->
-        <!--#{name},-->
-      <!--</if>-->
-      <!--<if test="password != null">-->
-        <!--#{password},-->
-      <!--</if>-->
-      <!--<if test="idcard != null">-->
-        <!--#{idcard},-->
-      <!--</if>-->
-      <!--<if test="phone != null">-->
-        <!--#{phone},-->
-      <!--</if>-->
-      <!--<if test="email != null">-->
-        <!--#{email},-->
-      <!--</if>-->
-      <!--<if test="address != null">-->
-        <!--#{address},-->
-      <!--</if>-->
-    <!--</trim>-->
-  <!--</insert>-->
-  <!--<update id="updateByPrimaryKeySelective" parameterType="shizhe.beanser">-->
-    <!--update user-->
-    <!--<set>-->
-      <!--<if test="name != null">-->
-        <!--`name` = #{name},-->
-      <!--</if>-->
-      <!--<if test="password != null">-->
-        <!--`password` = #{password},-->
-      <!--</if>-->
-      <!--<if test="idcard != null">-->
-        <!--idcard = #{idcard},-->
-      <!--</if>-->
-      <!--<if test="phone != null">-->
-        <!--phone = #{phone},-->
-      <!--</if>-->
-      <!--<if test="email != null">-->
-        <!--email = #{email},-->
-      <!--</if>-->
-      <!--<if test="address != null">-->
-        <!--address = #{address},-->
-      <!--</if>-->
-    <!--</set>-->
-    <!--where id = #{id}-->
-  <!--</update>-->
-  <update id="edit" parameterType="shizhe.bean.Volunteer">
+  <insert id="registeVolunteer" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Volunteer">
+    insert into volunteer (education, `status`,
+      user_id, certificate)
+    values ( #{education}, #{status}, #{userId}, #{certificate})
+  </insert>
+  <insert id="registeRecruiter" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Recruiter">
+    insert into recruiter (identify, user_id,
+      company_name, company_phone)
+    values (#{identify}, #{userId}, #{companyName}, #{companyPhone})
+  </insert>
+  <update id="editUser" parameterType="shizhe.bean.User">
     update user
-    set
-      `password` = #{password},
-      idcard = #{idcard},
-      phone = #{phone},
-      email = #{email},
-      address = #{address}
+    <set>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      <if test="password != null">
+        `password` = #{password},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="address != null">
+        address = #{address}
+      </if>
+    </set>
     where id = #{userId}
+  </update>
+  <update id="editVolunteer" parameterType="shizhe.bean.Volunteer">
+    update volunteer
+    <set>
+      <if test="education != null">
+        education = #{education},
+      </if>
+      <if test="status != null">
+        `status` = #{status},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate}
+      </if>
+    </set>
+    where id = #{id}
   </update>
   <update id="editRecruiter" parameterType="shizhe.bean.Recruiter">
-    update user
-    set
-      `password` = #{password},
-      idcard = #{idcard},
-      phone = #{phone},
-      email = #{email},
-      address = #{address}
-    where id = #{userId}
+    update recruiter
+    <set>
+      <if test="identify != null">
+        identify = #{identify},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName},
+      </if>
+      <if test="companyPhone != null">
+        company_phone = #{companyPhone},
+      </if>
+    </set>
+    where id = #{id}
   </update>
+  <select id="selectVols" resultMap="BaseVolunteerMap">
+    select
+    a.id as id, `name`, `password`,
+    idcard, phone, email,
+    address, regsitedt, user_type, education, `status`,
+    user_id, certificate 
+    from volunteer a
+    LEFT JOIN `user` b on a.user_id=b.id
+    <where>
+      1 = 1
+      <if test="address != null and address != ''">
+        AND address = #{address}
+      </if>
+      <if test="education != null and education != ''">
+        AND `education` = #{education}
+      </if>
+      <if test="status != null and status != ''">
+        AND status = #{status}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        AND `name` LIKE CONCAT(CONCAT('%', #{keyword}), '%')
+      </if>
+      <if test="certificate != null and certificate != ''">
+        AND certificate = #{certificate}
+      </if>
+    </where>
+  </select>
+  <select id="selectRecrs" resultMap="BaseRecruiterMap">
+    select
+    a.id as id, `name`, `password`,
+    idcard, phone, email,
+    address, regsitedt, user_type, identify, user_id,
+    company_name, company_phone 
+    from recruiter a
+    LEFT JOIN `user` b on a.user_id=b.id
+    <where>
+      1 = 1
+      <if test="address != null and address != ''">
+        AND address = #{address}
+      </if>
+      <if test="company_name != null and company_name != ''">
+        AND company_name = #{companyName}
+      </if>
+    </where>
+  </select>
+  <select id="getVolunteer" parameterType="java.lang.Integer" resultMap="BaseVolunteerMap">
+    select
+    a.id as id, `name`, `password`,
+    idcard, phone, email,
+    address, regsitedt, user_type, education, `status`,
+    user_id, certificate 
+    from volunteer a
+    LEFT JOIN `user` b on a.user_id=b.id
+    having a.user_id=#{userId}
+  </select>
+  <select id="getRecruiter" parameterType="java.lang.Integer" resultMap="BaseRecruiterMap">
+    select
+    a.id as id, `name`, `password`,
+    idcard, phone, email,
+    address, regsitedt, user_type, identify, user_id,
+    company_name, company_phone 
+    from recruiter a
+    LEFT JOIN `user` b on a.user_id=b.id
+    having a.user_id=#{userId}
+  </select>
+  <select id="getUser" parameterType="java.lang.Integer" resultMap="BaseUserMap">
+    select * from `user`
+    where id=#{userId}
+  </select>
 </mapper>

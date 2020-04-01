@@ -3,20 +3,41 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import shizhe.bean.Address;
-import shizhe.dao.DatadictDao;
-import shizhe.entity.TextToShow;
+import shizhe.bean.User;
+import shizhe.bean.Volunteer;
+import shizhe.dao.DatadictDAO;
+import shizhe.service.DatadictService;
+//import shizhe.dao.DatadictDAO;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class addressPut {
-    static DatadictDao addressDao;
+//    static DatadictDAO addressDao;
 //    static FileService fileService;
-    public static void main(String[] args) throws IOException {
-        String filePath = "D:\\简巨科技\\文件\\转正申请书-张泽丹.docx";
-        String newfilePath = "D:\\简巨科技\\文件\\转正申请书-张泽丹.pdf";
-        TextToShow convert = new TextToShow(new File(filePath), new File(newfilePath));
-        convert.word2pdf(filePath,newfilePath);
+    public static void main(String[] args) throws IOException, CloneNotSupportedException {
+        DatadictService datadictDAO = new DatadictService();
+        datadictDAO.selectLicense();
+//        String a="";
+//        System.out.println(a.split(",").length);
+//        for (String s : a.split(",")) {
+//            System.out.println(s);
+//        }
+//        Volunteer volunteer = new Volunteer();
+//        volunteer.setId(1);
+//        volunteer.setUserId(2);
+////        System.out.println(volunteer.);
+////        User user = volunteer;
+//        User user = (User)volunteer.clone();
+//        user.setId(volunteer.getUserId());
+////        volunteer.
+//        System.out.println(user.getId()+","+volunteer.getId()+","+volunteer.getUserId());
+//        String filePath = "D:\\简巨科技\\文件\\转正申请书-张泽丹.docx";
+//        String newfilePath = "D:\\简巨科技\\文件\\转正申请书-张泽丹.pdf";
+//        TextToShow convert = new TextToShow(new File(filePath), new File(newfilePath));
+//        convert.word2pdf(filePath,newfilePath);
+
 //        String imgPath = transformToImg(filePath);
 //        System.out.println(imgPath);
 //        TextToShow convert = new TextToShow(new File(filePath), new File(imgPath));

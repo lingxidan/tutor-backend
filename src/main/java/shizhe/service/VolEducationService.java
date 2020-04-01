@@ -3,28 +3,21 @@ package shizhe.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shizhe.bean.VolEducation;
-import shizhe.dao.DatadictDao;
-import shizhe.dao.VolEducationDao;
-import shizhe.dao.SchoolDao;
+import shizhe.dao.DatadictDAO;
+import shizhe.dao.VolEducationDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("VolEducationService")
 public class VolEducationService {
     @Autowired
-    VolEducationDao volEducationDao;
+    VolEducationDAO volEducationDao;
     @Autowired
-    DatadictDao datadictDao;
-    @Autowired
-    SchoolDao schoolDao;
-    // 查询
-    public VolEducation selectById(int id){
-        VolEducation volEducation=volEducationDao.selectById(id);
-        return volEducation;
-    }
+    DatadictDAO datadictDao;
+
     public List<VolEducation> selectByCondition(String userId){
-        List<VolEducation> volEducationList=volEducationDao.selectByCondition(userId);
-        return volEducationList;
+        return volEducationDao.selectByCondition(userId);
     }
 
     // 新增

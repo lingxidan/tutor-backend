@@ -1,6 +1,7 @@
 package shizhe.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * article
@@ -11,19 +12,15 @@ public class Article implements Serializable {
 
     private String title;
 
-    private String establishDt;
+    private Date establishDt;
 
     private Integer authorId;
 
     private String imgs;
 
-    private String reason;
-
-    private String result;
-
     private String content;
 
-    private Integer status;
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -41,11 +38,11 @@ public class Article implements Serializable {
         this.title = title;
     }
 
-    public String getEstablishDt() {
+    public Date getEstablishDt() {
         return establishDt;
     }
 
-    public void setEstablishDt(String establishDt) {
+    public void setEstablishDt(Date establishDt) {
         this.establishDt = establishDt;
     }
 
@@ -65,35 +62,11 @@ public class Article implements Serializable {
         this.imgs = imgs;
     }
 
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.JobDao">
-  <resultMap id="BaseJobMap" type="Job">
+<mapper namespace="shizhe.dao.JobDAO">
+  <resultMap id="BaseJobMap" type="shizhe.bean.Job">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="school_id" jdbcType="INTEGER" property="schoolId" />
@@ -9,15 +9,14 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="address_name" jdbcType="VARCHAR" property="addressName" />
     <result column="education" jdbcType="VARCHAR" property="education" />
-    <result column="descr" jdbcType="VARCHAR" property="descr" />
+    <result column="descr" jdbcType="LONGVARCHAR" property="descr" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="establish_dt" jdbcType="DATE" property="establishDt" />
-    <result column="reason" jdbcType="VARCHAR" property="reason" />
-    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="job_insure" jdbcType="VARCHAR" property="jobInsure" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, school_id, user_id, address, address_name, education, descr, `status`, 
-    establish_dt, reason, `result`
+    id, `name`, school_id, user_id, address, address_name, education, descr, `status`,
+    establish_dt, job_insure
   </sql>
   <select id="selectByCondition" resultMap="BaseJobMap">
     select
@@ -35,18 +34,16 @@
         AND address = #{address}
       </if>
       <if test="keyword != null and keyword != ''">
-        AND `name` LIKE '%' || #{keyword} ||'%'
+        AND `name` LIKE CONCAT(CONCAT('%', #{keyword}), '%')
       </if>
       <if test="education != null and education != ''">
         AND education = #{education}
-      </if>
-      <if test="establishDt != null and establishDt != ''">
-        AND establish_dt = #{establishDt}
       </if>
       <if test="status != null and status != ''">
         AND status = #{status}
       </if>
     </where>
+    order by id desc
   </select>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseJobMap">
     select
@@ -55,22 +52,20 @@
     where id = #{id}
   </select>
 
-  <!--<delete id="deleteSchool" parameterType="java.lang.Integer">-->
-  <!--delete from school-->
-  <!--where id = #{id}-->
-  <!--</delete>-->
+  <delete id="deleteJob" parameterType="java.lang.Integer">
+    delete from job
+    where id = #{id}
+  </delete>
   <insert id="insertJob" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Job">
-    insert into job (`name`, school_id, 
-      user_id, address, address_name, 
-      education, descr, `status`, 
-      establish_dt, reason, `result`
-      )
-    values (#{name}, #{schoolId}, 
-      #{userId}, #{address}, #{addressName}, 
-      #{education}, #{descr}, #{status}, 
-      #{establishDt}, #{reason}, #{result}
-      )
-  </insert>
+      insert into job (`name`, school_id, user_id, address, address_name, education, descr, `status`,
+    establish_dt, job_insure
+        )
+      values (#{name}, #{schoolId},
+        #{userId}, #{address}, #{addressName},
+        #{education}, #{descr}, #{status},
+        #{establishDt}, #{jobInsure}
+        )
+    </insert>
   <update id="updateJob" parameterType="shizhe.bean.School">
     update job
     set `name` = #{name},
@@ -82,8 +77,7 @@
       descr = #{descr},
       `status` = #{status},
       establish_dt = #{establishDt},
-      reason = #{reason},
-      `result` = #{result}
+      job_insure = #{jobInsure}
     where id = #{id}
   </update>
 </mapper>

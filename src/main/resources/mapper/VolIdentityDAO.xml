@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shizhe.dao.VolIdentityDAO">
+  <resultMap id="BaseResultMap" type="shizhe.bean.VolIdentity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="apply_dt" javaType="java.util.Date" jdbcType="TIMESTAMP" property="applyDt" />
+    <result column="apply_id" jdbcType="VARCHAR" property="applyId" />
+    <result column="apply_startdt" jdbcType="DATE" property="applyStartdt" />
+    <result column="apply_enddt" jdbcType="DATE" property="applyEnddt" />
+    <result column="image" jdbcType="VARCHAR" property="img" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+    <result column="vol_id" jdbcType="INTEGER" property="volId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, apply_dt, apply_id, apply_startdt, apply_enddt, image, `describe`, `result`, 
+    vol_id
+  </sql>
+  <insert id="applyRecrIdenty" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.VolIdentity">
+    insert into vol_identity (apply_dt, apply_id,
+      apply_startdt, apply_enddt, image, `describe`, `result`,
+      vol_id)
+    values (#{applyDt}, #{applyId},
+      #{applyStartdt}, #{applyEnddt}, #{img}, #{describe}, #{result},
+      #{volId})
+  </insert>
+  <select id="selectIdentys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vol_identity
+    where vol_id = #{volId}
+    order by apply_dt desc
+  </select>
+  <select id="selectAllIdentys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vol_identity a
+    where apply_dt = (select max(apply_dt) from vol_identity b where a.vol_id=b.vol_id)
+    and result = #{result}
+    order by apply_dt;
+  </select>
+  <update id="updateIdenty" parameterType="shizhe.bean.VolIdentity">
+    update vol_identity
+    <set>
+      <if test="describe != null">
+        `describe` = #{describe},
+      </if>
+      <if test="result != null">
+        `result` = #{result},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <select id="selectLastIdentity" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vol_identity
+    where vol_id = #{volId}
+    order by apply_dt desc
+    limit 1
+  </select>
+</mapper>

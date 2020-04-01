@@ -13,9 +13,19 @@ public class Recruiter extends User implements Serializable {
 
     private Integer userId;
 
-    private String reason;
+    private String companyName;
+
+    private String companyPhone;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getIdentify() {
         return identify;
@@ -33,25 +43,19 @@ public class Recruiter extends User implements Serializable {
         this.userId = userId;
     }
 
-    public String getReason() {
-        return reason;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", identify=").append(identify);
-        sb.append(", userId=").append(userId);
-        sb.append(", reason=").append(reason);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
     }
 }

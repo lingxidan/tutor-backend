@@ -1,5 +1,6 @@
 package shizhe.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import shizhe.bean.Chat;
 import shizhe.common.ApiResult;
+import shizhe.common.DateUtils;
 import shizhe.common.StatusCode;
 import shizhe.service.ChatService;
 
@@ -23,23 +25,26 @@ public class ChatController {
     @Resource
     ChatService chatService;
 
-    @ApiOperation(value = "查看发送者以及接受者之间的消息", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "查看发送者和某个接受者之间的消息", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/selectByFromTo")
     @ResponseBody
-    public ApiResult selectByFromTo(int fromId,int toId){
+    public ApiResult selectFromChat(int userId,String dt){
         ApiResult<Object> result = new ApiResult<>();
-        List<Chat> chatList=chatService.selectByFromTo(fromId,toId);
+        List<Chat> chatList=chatService.selectFromChat(userId,dt);
         result.setStatus(StatusCode.SC_SUCCESS);
         result.setData(chatList);
         return result;
     }
 
-    @ApiOperation(value = "查看某个接受者的所有发送者新消息", produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/selectLastChats")
+    @ApiOperation(value = "获取所有发出或者收到的消息", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/selectAllChat")
     @ResponseBody
-    public ApiResult selectLastChats(int userId){
+    public ApiResult selectAllChat(int uesrId){
         ApiResult<Object> result = new ApiResult<>();
-        List<Chat> chatList=chatService.selectLastChats(userId);
+        List<Chat> chatList=chatService.selectAllChat(uesrId);
+//        chatList.forEach(chat -> {
+//            chat.setDt(DateUtils.formatDateTime(chat.getDt()));
+//        });
         result.setStatus(StatusCode.SC_SUCCESS);
         result.setData(chatList);
         return result;

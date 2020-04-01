@@ -1,8 +1,6 @@
 package shizhe.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * jobtype
@@ -15,7 +13,7 @@ public class Jobtype implements Serializable {
 
     private String pcode;
 
-    private List<Jobtype> subList=new ArrayList<>();
+    private static final long serialVersionUID = 1L;
 
     public String getCode() {
         return code;
@@ -39,13 +37,5 @@ public class Jobtype implements Serializable {
 
     public void setPcode(String pcode) {
         this.pcode = pcode;
-    }
-
-    public List<Jobtype> getSubList() {
-        return subList;
-    }
-
-    public void setSubList(List<Jobtype> subList) {
-        this.subList = subList;
     }
 }

@@ -1,6 +1,9 @@
 package shizhe.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * vol_education
@@ -15,21 +18,14 @@ public class VolEducation implements Serializable {
 
     private String degree;
 
-    private String startDt;
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    private Date startDt;
 
     private String endDt;
 
-    private String content;
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     private Integer userId;
+
+    private String content;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,11 +61,11 @@ public class VolEducation implements Serializable {
         this.degree = degree;
     }
 
-    public String getStartDt() {
+    public Date getStartDt() {
         return startDt;
     }
 
-    public void setStartDt(String startDt) {
+    public void setStartDt(Date startDt) {
         this.startDt = startDt;
     }
 
@@ -87,5 +83,13 @@ public class VolEducation implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

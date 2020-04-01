@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.SchoolDao">
-  <resultMap id="BaseSchoolMap" type="School">
+<mapper namespace="shizhe.dao.SchoolDAO">
+  <resultMap id="BaseSchoolMap" type="shizhe.bean.School">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="CHAR" property="name" />
-    <result column="address" jdbcType="CHAR" property="address" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="address_name" jdbcType="VARCHAR" property="addressName" />
-    <result column="education" jdbcType="CHAR" property="education" />
-    <result column="descr" jdbcType="CHAR" property="descr" />
-    <result column="imgs" jdbcType="CHAR" property="imgs" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="imgs" jdbcType="LONGVARCHAR" property="imgs" />
     <result column="establish_dt" jdbcType="DATE" property="establishDt" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="scale" jdbcType="CHAR" property="scale" />
-    <result column="reason" jdbcType="CHAR" property="reason" />
-    <result column="result" jdbcType="CHAR" property="result" />
+    <result column="descr" jdbcType="LONGVARCHAR" property="descr" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, address, address_name, education, descr, imgs, establish_dt, user_id, `status`,
-    `scale`, reason, `result`
+    id, `name`, address, address_name, education, imgs, establish_dt, user_id, `status`, descr
   </sql>
   <select id="selectByCondition" resultMap="BaseSchoolMap">
     select
@@ -29,19 +25,17 @@
       <if test="userId != null and userId != ''">
         AND user_id = #{userId}
       </if>
-      <if test="scale != null and scale != ''">
-        AND `scale` = #{scale}
-      </if>
       <if test="address != null and address != ''">
         AND address = #{address}
       </if>
       <if test="keyword != null and keyword != ''">
-        AND `name` LIKE '%' || #{keyword} ||'%'
+        AND `name` LIKE CONCAT(CONCAT('%', #{keyword}), '%')
       </if>
       <if test="status != null and status != ''">
         AND status = #{status}
       </if>
     </where>
+    order by id desc
   </select>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseSchoolMap">
     select 
@@ -53,7 +47,6 @@
     select
     <include refid="Base_Column_List" />
     from school
-    where `scale` = #{scale}
   </select>
   <select id="selectByAddr" resultMap="BaseSchoolMap">
     select
@@ -79,14 +72,14 @@
     <!--where id = #{id}-->
   <!--</delete>-->
   <insert id="insertSchool" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.School">
-    insert into school (`name`, address,address_name,
-      education, descr, imgs, establish_dt, 
-      user_id, `status`, `scale`, 
-      reason, `result`)
-    values (#{name}, #{address},#{addressName},
-      #{education}, #{descr}, #{imgs}, #{establishDt}, 
-      #{userId}, #{status}, #{scale}, 
-      #{reason}, #{result})
+    insert into school (`name`, address,
+      address_name, education, imgs,
+      establish_dt, user_id, `status`,
+      descr)
+    values (#{name}, #{address},
+      #{addressName}, #{education}, #{imgs},
+      #{establishDt}, #{userId}, #{status},
+      #{descr})
   </insert>
   <update id="updateSchool" parameterType="shizhe.bean.School">
     update school
@@ -98,10 +91,7 @@
       imgs = #{imgs},
       establish_dt = #{establishDt},
       user_id = #{userId},
-      `status` = #{status},
-      `scale` = #{scale},
-      reason = #{reason},
-      `result` = #{result}
+      `status` = #{status}
     where id = #{id}
   </update>
   <delete id="deleteSchool" parameterType="java.lang.Integer">

@@ -1,5 +1,7 @@
 package shizhe.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,21 +20,16 @@ public class School implements Serializable {
 
     private String education;
 
-    private String descr;
-
     private String imgs;
 
-    private String establishDt;
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    private Date establishDt;
 
     private Integer userId;
 
     private Integer status;
 
-    private String scale;
-
-    private String reason;
-
-    private String result;
+    private String descr;
 
     private static final long serialVersionUID = 1L;
 
@@ -60,20 +57,20 @@ public class School implements Serializable {
         this.address = address;
     }
 
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
     public String getEducation() {
         return education;
     }
 
     public void setEducation(String education) {
         this.education = education;
-    }
-
-    public String getDescr() {
-        return descr;
-    }
-
-    public void setDescr(String descr) {
-        this.descr = descr;
     }
 
     public String getImgs() {
@@ -84,11 +81,11 @@ public class School implements Serializable {
         this.imgs = imgs;
     }
 
-    public String getEstablishDt() {
+    public Date getEstablishDt() {
         return establishDt;
     }
 
-    public void setEstablishDt(String establishDt) {
+    public void setEstablishDt(Date establishDt) {
         this.establishDt = establishDt;
     }
 
@@ -108,35 +105,11 @@ public class School implements Serializable {
         this.status = status;
     }
 
-    public String getScale() {
-        return scale;
+    public String getDescr() {
+        return descr;
     }
 
-    public void setScale(String scale) {
-        this.scale = scale;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getAddressName() {
-        return addressName;
-    }
-
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 }

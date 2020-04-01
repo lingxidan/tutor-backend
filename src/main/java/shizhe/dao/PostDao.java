@@ -7,13 +7,13 @@ import shizhe.bean.Post;
 import java.util.List;
 
 @Repository
-public interface PostDao {
+public interface PostDAO {
     // 查询
     Post selectById(@Param("id") int id);
+    Long deletePost(@Param("id") int id);
     List<Post> selectByCondition(@Param("userId") String userId,
                                 @Param("keyword") String keyword,
-                                @Param("establishDt") String establishDt,
-                                @Param("status") String status);
+                                @Param("establishDt") String establishDt);
 
     // 新增
     Long insertPost(Post post);

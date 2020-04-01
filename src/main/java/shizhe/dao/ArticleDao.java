@@ -7,13 +7,13 @@ import shizhe.bean.Article;
 import java.util.List;
 
 @Repository
-public interface ArticleDao {
+public interface ArticleDAO {
     // 查询
     Article selectById(@Param("id") int id);
+    Long deleteArticle(@Param("id") int id);
     List<Article> selectByCondition(@Param("userId") String userId,
                                 @Param("keyword") String keyword,
-                                @Param("establishDt") String establishDt,
-                                @Param("status") String status);
+                                @Param("establishDt") String establishDt);
 
     // 新增
     Long insertArticle(Article article);

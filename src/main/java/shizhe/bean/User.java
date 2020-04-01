@@ -1,12 +1,13 @@
 package shizhe.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * user
  * @author 
  */
-public class User implements Serializable {
+public class User implements Serializable, Cloneable {
     private Integer id;
 
     private String name;
@@ -23,15 +24,9 @@ public class User implements Serializable {
 
     private String addressName;
 
-    public String getAddressName() {
-        return addressName;
-    }
+    private Date regsitedt;
 
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
-    }
-
-    private String regsitedt;
+    private Integer userType;
 
     private static final long serialVersionUID = 1L;
 
@@ -91,12 +86,32 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public String getRegsitedt() {
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    public Date getRegsitedt() {
         return regsitedt;
     }
 
-    public void setRegsitedt(String regsitedt) {
+    public void setRegsitedt(Date regsitedt) {
         this.regsitedt = regsitedt;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

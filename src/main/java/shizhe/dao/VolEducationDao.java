@@ -6,10 +6,12 @@ import shizhe.bean.VolEducation;
 
 import java.util.List;
 
+/**
+ * VolEducationDAO继承基类
+ */
 @Repository
-public interface VolEducationDao {
+public interface VolEducationDAO extends MyBatisBaseDao<VolEducation, Integer> {
     // 查询
-    VolEducation selectById(@Param("id") int id);
     List<VolEducation> selectByCondition(@Param("userId") String userId);
 
     // 新增
@@ -18,5 +20,4 @@ public interface VolEducationDao {
     Long updateVolEducation(VolEducation volEducation);
     //删除
     Long deleteById(@Param("id") int id);
-
 }

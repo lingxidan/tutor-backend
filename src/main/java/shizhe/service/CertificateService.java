@@ -3,28 +3,23 @@ package shizhe.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shizhe.bean.Certificate;
-import shizhe.dao.DatadictDao;
-import shizhe.dao.CertificateDao;
-import shizhe.dao.SchoolDao;
+import shizhe.dao.CertificateDAO;
+import shizhe.dao.DatadictDAO;
+//import shizhe.dao_bak.CertificateDao;
+//import shizhe.dao_bak.SchoolDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("CertificateService")
 public class CertificateService {
     @Autowired
-    CertificateDao certificateDao;
-    @Autowired
-    DatadictDao datadictDao;
-    @Autowired
-    SchoolDao schoolDao;
-    // 查询
-    public Certificate selectById(int id){
-        Certificate certificate=certificateDao.selectById(id);
-        return certificate;
-    }
+    CertificateDAO certificateDao;
+//    @Autowired
+//    SchoolDao schoolDao;
+
     public List<Certificate> selectByCondition(String userId){
-        List<Certificate> certificateList=certificateDao.selectByCondition(userId);
-        return certificateList;
+        return certificateDao.selectByCondition(userId);
     }
 
     // 新增

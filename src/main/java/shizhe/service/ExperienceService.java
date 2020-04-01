@@ -3,28 +3,21 @@ package shizhe.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shizhe.bean.Experience;
-import shizhe.dao.DatadictDao;
-import shizhe.dao.ExperienceDao;
-import shizhe.dao.SchoolDao;
+import shizhe.dao.DatadictDAO;
+import shizhe.dao.ExperienceDAO;
+//import shizhe.dao_bak.ExperienceDao;
+//import shizhe.dao_bak.SchoolDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("ExperienceService")
 public class ExperienceService {
     @Autowired
-    ExperienceDao experienceDao;
-    @Autowired
-    DatadictDao datadictDao;
-    @Autowired
-    SchoolDao schoolDao;
-    // 查询
-    public Experience selectById(int id){
-        Experience experience=experienceDao.selectById(id);
-        return experience;
-    }
+    ExperienceDAO experienceDao;
+
     public List<Experience> selectByCondition(String userId){
-        List<Experience> experienceList=experienceDao.selectByCondition(userId);
-        return experienceList;
+        return experienceDao.selectByCondition(userId);
     }
 
     // 新增

@@ -24,18 +24,7 @@ public class CertificateController {
     @Resource
     CertificateService certificateService;
 
-//    @ApiOperation(value = "查看资格证书详情", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @GetMapping("/selectById")
-//    @ResponseBody
-//    public ApiResult selectById(int certificateId){
-//        ApiResult<Object> result = new ApiResult<>();
-//        Certificate certificate=certificateService.selectById(certificateId);
-//        result.setStatus(StatusCode.SC_SUCCESS);
-//        result.setData(certificate);
-//        return result;
-//    }
-
-    @ApiOperation(value = "根据条件筛选资格证书", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "根据条件筛选资格证书", produces = MediaType.ALL_VALUE)
     @GetMapping("/selectByCondition")
     @ResponseBody
     public ApiResult selectByCondition(String userId){
@@ -46,9 +35,8 @@ public class CertificateController {
         return result;
     }
 
-    @ApiOperation(value = "增加资格证书", produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/insertCertificate")
-    @DateTimeFormat(pattern = "yyyyMMdd")
+    @ApiOperation(value = "增加资格证书", produces = MediaType.ALL_VALUE)
+    @PostMapping("/insertCertificate")
     @ResponseBody
     public ApiResult insertCertificate(Certificate certificate){
         ApiResult<Object> result = new ApiResult<>();
@@ -58,8 +46,8 @@ public class CertificateController {
         return result;
     }
 
-    @ApiOperation(value = "更新资格证书", produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/updateCertificate")
+    @ApiOperation(value = "更新资格证书", produces = MediaType.ALL_VALUE)
+    @PostMapping("/updateCertificate")
     @ResponseBody
     public ApiResult updateCertificate(Certificate certificate){
         ApiResult<Object> result = new ApiResult<>();

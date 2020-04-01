@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.PostDao">
-  <resultMap id="BasePostMap" type="Post">
+<mapper namespace="shizhe.dao.PostDAO">
+  <resultMap id="BasePostMap" type="shizhe.bean.Post">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="establish_dt" jdbcType="DATE" property="establishDt" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
-    <result column="reason" jdbcType="VARCHAR" property="reason" />
-    <result column="result" jdbcType="VARCHAR" property="result" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="imgs" jdbcType="LONGVARCHAR" property="imgs" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, establish_dt, author_id, content, imgs, reason, `result`, `status`
+    id, title, establish_dt, author_id, content, imgs
   </sql>
   <select id="selectByCondition" resultMap="BasePostMap">
     select
@@ -25,15 +22,13 @@
         AND author_id = #{userId}
       </if>
       <if test="keyword != null and keyword != ''">
-        AND `title` LIKE '%' || #{keyword} ||'%'
+        AND title LIKE CONCAT(CONCAT('%', #{keyword}), '%')
       </if>
       <if test="establishDt != null and establishDt != ''">
         AND establish_dt = #{establishDt}
       </if>
-      <if test="status != null and status != ''">
-        AND status = #{status}
-      </if>
     </where>
+    order by id desc
   </select>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BasePostMap">
     select
@@ -41,24 +36,24 @@
     from post
     where id = #{id}
   </select>
+
+  <delete id="deletePost" parameterType="java.lang.Integer">
+    delete from post
+    where id = #{id}
+  </delete>
   <insert id="insertPost" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Post">
-    insert into post (title, establish_dt, 
-      author_id, content, imgs, 
-      reason, `result`, `status`
+    insert into post (title, author_id,
+      content, imgs, establish_dt
       )
-    values (#{title}, #{establishDt}, 
-      #{authorId}, #{content}, #{imgs}, 
-      #{reason}, #{result}, #{status}
+    values (#{title}, #{authorId},
+      #{content}, #{imgs}, #{establishDt}
       )
   </insert>
   <update id="updatePost" parameterType="shizhe.bean.Post">
     update post
     set title = #{title},
       content = #{content},
-      imgs = #{imgs},
-      reason = #{reason},
-      `result` = #{result},
-      `status` = #{status}
+      imgs = #{imgs}
     where id = #{id}
   </update>
 </mapper>

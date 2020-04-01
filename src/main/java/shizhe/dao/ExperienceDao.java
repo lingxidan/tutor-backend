@@ -6,10 +6,12 @@ import shizhe.bean.Experience;
 
 import java.util.List;
 
+/**
+ * ExperienceDAO继承基类
+ */
 @Repository
-public interface ExperienceDao {
+public interface ExperienceDAO extends MyBatisBaseDao<Experience, Integer> {
     // 查询
-    Experience selectById(@Param("id") int id);
     List<Experience> selectByCondition(@Param("userId") String userId);
 
     // 新增
@@ -18,5 +20,4 @@ public interface ExperienceDao {
     Long updateExperience(Experience experience);
     //删除
     Long deleteById(@Param("id") int id);
-
 }

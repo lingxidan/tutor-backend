@@ -6,14 +6,14 @@ import java.io.Serializable;
  * collection
  * @author 
  */
-public class Interest implements Serializable {
+public class Attention implements Serializable {
     private Integer id;
 
     private Integer userId;
 
     private Integer collectId;
 
-    private Integer type;
+    private Integer collectType;
 
     private static final long serialVersionUID = 1L;
 
@@ -41,11 +41,11 @@ public class Interest implements Serializable {
         this.collectId = collectId;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getCollectType() {
+        return collectType;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setCollectType(Integer collectType) {
+        this.collectType = collectType;
     }
 }

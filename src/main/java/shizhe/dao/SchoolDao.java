@@ -10,11 +10,10 @@ import java.util.List;
  * SchoolDao继承基类
  */
 @Repository
-public interface SchoolDao {
+public interface SchoolDAO {
     // 查询
     School selectById(@Param("id") int id);
     List<School> selectByCondition(@Param("userId") String userId,
-                                   @Param("scale") String scale,
                                    @Param("address") String address,
                                    @Param("keyword") String keyword,
                                    @Param("status") String status);

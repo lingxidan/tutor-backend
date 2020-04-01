@@ -14,6 +14,10 @@ public class ExpectJob implements Serializable {
 
     private String addrs;
 
+    private Integer userId;
+
+    private List<String> addrNames;
+
     public List<String> getAddrNames() {
         return addrNames;
     }
@@ -21,10 +25,6 @@ public class ExpectJob implements Serializable {
     public void setAddrNames(List<String> addrNames) {
         this.addrNames = addrNames;
     }
-
-    private List<String> addrNames;
-
-    private Integer userId;
 
     private static final long serialVersionUID = 1L;
 

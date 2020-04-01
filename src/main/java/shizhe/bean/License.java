@@ -1,7 +1,6 @@
 package shizhe.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +12,17 @@ public class License implements Serializable {
 
     private String pname;
 
-    private List<License> subList=new ArrayList<>();
+    public List<License> getSubList() {
+        return subList;
+    }
+
+    public void setSubList(List<License> subList) {
+        this.subList = subList;
+    }
+
+    private List<License> subList;
+
+    private static final long serialVersionUID = 1L;
 
     public String getName() {
         return name;
@@ -29,13 +38,5 @@ public class License implements Serializable {
 
     public void setPname(String pname) {
         this.pname = pname;
-    }
-
-    public List<License> getSubList() {
-        return subList;
-    }
-
-    public void setSubList(List<License> subList) {
-        this.subList = subList;
     }
 }

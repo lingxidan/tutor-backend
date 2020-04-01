@@ -23,19 +23,8 @@ public class VolEducationController {
     @Autowired
     @Resource
     VolEducationService volEducationService;
-
-//    @ApiOperation(value = "查看教育经历详情", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @GetMapping("/selectById")
-//    @ResponseBody
-//    public ApiResult selectById(int volEducationId){
-//        ApiResult<Object> result = new ApiResult<>();
-//        VolEducation volEducation=volEducationService.selectById(volEducationId);
-//        result.setStatus(StatusCode.SC_SUCCESS);
-//        result.setData(volEducation);
-//        return result;
-//    }
-
-    @ApiOperation(value = "根据条件筛选教育经历", produces = MediaType.APPLICATION_JSON_VALUE)
+    
+    @ApiOperation(value = "根据条件筛选教育经历", produces = MediaType.ALL_VALUE)
     @GetMapping("/selectByCondition")
     @ResponseBody
     public ApiResult selectByCondition(String userId){
@@ -46,9 +35,8 @@ public class VolEducationController {
         return result;
     }
 
-    @ApiOperation(value = "增加教育经历", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "增加教育经历", produces = MediaType.ALL_VALUE)
     @GetMapping("/insertVolEducation")
-    @DateTimeFormat(pattern = "yyyyMMdd")
     @ResponseBody
     public ApiResult insertVolEducation(VolEducation volEducation){
         ApiResult<Object> result = new ApiResult<>();
@@ -58,7 +46,7 @@ public class VolEducationController {
         return result;
     }
 
-    @ApiOperation(value = "更新教育经历", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "更新教育经历", produces = MediaType.ALL_VALUE)
     @GetMapping("/updateVolEducation")
     @ResponseBody
     public ApiResult updateVolEducation(VolEducation volEducation){
@@ -69,7 +57,7 @@ public class VolEducationController {
         return result;
     }
 
-    @ApiOperation(value = "删除教育经历", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "删除教育经历", produces = MediaType.ALL_VALUE)
     @PostMapping("/deleteVolEducation")
     @ResponseBody
     public ApiResult deleteVolEducation(int id){

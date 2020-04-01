@@ -1,45 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="shizhe.dao.ChatDao">
-  <resultMap id="BaseChatMap" type="Chat">
+<mapper namespace="shizhe.dao.ChatDAO">
+  <resultMap id="BaseChatMap" type="shizhe.bean.Chat">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="from_id" jdbcType="INTEGER" property="fromId" />
     <result column="to_id" jdbcType="INTEGER" property="toId" />
-    <result column="dt" jdbcType="DATE" property="dt" />
+    <result column="dt" javaType="java.util.Date" jdbcType="TIMESTAMP" property="dt" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
     id, from_id, to_id, dt, content
   </sql>
-  <select id="selectByFromTo" resultMap="BaseChatMap">
-    select 
-    <include refid="Base_Column_List" />
-    from chat
-    where (from_id = #{fromId}
-    and to_id = #{toId})
-    or (from_id = #{toId}
-    and to_id = #{fromId})
-    order by dt;
-  </select>
-  <select id="selectLastChats" resultMap="BaseChatMap">
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectFromChat" resultMap="BaseChatMap">
     select
     <include refid="Base_Column_List" />
     from chat
-    where id in(
-      select max(id) from chat
-      group by from_id
-      having from_id = #{userId}
-    ) or id in(
-      select max(id) from chat
-      group by to_id
-      having to_id = #{userId}
-    )
-    order by dt desc
+    where (to_id = #{userId} OR from_id = #{userId}) AND dt > #{dt}
+    order by dt;
+  </select>
+  <select id="selectAllChat" resultMap="BaseChatMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat
+    where to_id = #{userId} OR from_id = #{userId}
+    order by dt;
   </select>
   <insert id="insertChat" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.Chat">
-    insert into chat (from_id, to_id, 
+    insert into chat (from_id, to_id,
       dt, content)
-    values (#{fromId}, #{toId}, 
+    values (#{fromId}, #{toId},
       #{dt}, #{content})
   </insert>
 </mapper>

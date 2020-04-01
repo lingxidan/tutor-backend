@@ -6,10 +6,12 @@ import shizhe.bean.Certificate;
 
 import java.util.List;
 
+/**
+ * CertificateDAO继承基类
+ */
 @Repository
-public interface CertificateDao {
+public interface CertificateDAO extends MyBatisBaseDao<Certificate, Integer> {
     // 查询
-    Certificate selectById(@Param("id") int id);
     List<Certificate> selectByCondition(@Param("userId") String userId);
 
     // 新增

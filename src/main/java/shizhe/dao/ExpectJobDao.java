@@ -6,8 +6,11 @@ import shizhe.bean.ExpectJob;
 
 import java.util.List;
 
+/**
+ * ExpectJobDAO继承基类
+ */
 @Repository
-public interface ExpectJobDao {
+public interface ExpectJobDAO extends MyBatisBaseDao<ExpectJob, Integer> {
     // 查询
     ExpectJob selectById(@Param("id") int id);
     List<ExpectJob> selectByCondition(@Param("userId") String userId);
@@ -18,5 +21,4 @@ public interface ExpectJobDao {
     Long updateExpectJob(ExpectJob expectJob);
     //删除
     Long deleteById(@Param("id") int id);
-
 }

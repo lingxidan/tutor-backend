@@ -3,27 +3,29 @@ package shizhe.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shizhe.bean.Chat;
-import shizhe.dao.ChatDao;
+import shizhe.dao.ChatDAO;
+//import shizhe.dao_bak.ChatDao;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service("ChatService")
 public class ChatService {
     @Autowired
-    ChatDao chatDao;
+    ChatDAO chatDao;
     // 查询
-    public List<Chat> selectByFromTo(int fromId,int toId){
-        return chatDao.selectByFromTo(fromId,toId);
+    public List<Chat> selectFromChat(int userId,String dt){
+        return chatDao.selectFromChat(userId,dt);
     }
-    public List<Chat> selectLastChats(int userId){
-        return chatDao.selectLastChats(userId);
+    public List<Chat> selectAllChat(int uesrId){
+        return chatDao.selectAllChat(uesrId);
     }
 
     // 新增
     public int insertChat(Chat chat){
-        chat.setDt((new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"/*你想要的格式*/)).format(new Date()));
+        chat.setDt(new Date());
         return chatDao.insertChat(chat);
     }
 }

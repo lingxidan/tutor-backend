@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shizhe.dao.RecrIdentityDAO">
+  <resultMap id="BaseResultMap" type="shizhe.bean.RecrIdentity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="apply_dt" javaType="java.util.Date" jdbcType="TIMESTAMP" property="applyDt" />
+    <result column="apply_id" jdbcType="VARCHAR" property="applyId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_phone" jdbcType="VARCHAR" property="companyPhone" />
+    <result column="apply_name" jdbcType="VARCHAR" property="applyName" />
+    <result column="image" jdbcType="LONGVARCHAR" property="image" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+    <result column="recr_id" jdbcType="INTEGER" property="recrId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, apply_dt, apply_id, company_name, company_phone, apply_name, image, `describe`, 
+    `result`, recr_id
+  </sql>
+  <insert id="applyRecrIdenty" useGeneratedKeys="true" keyProperty="id" parameterType="shizhe.bean.RecrIdentity">
+    insert into recr_identity (apply_dt, apply_id, 
+      company_name, company_phone, apply_name, 
+      image, `describe`, `result`, 
+      recr_id)
+    values (#{applyDt}, #{applyId}, 
+      #{companyName}, #{companyPhone}, #{applyName}, 
+      #{image}, #{describe}, #{result}, 
+      #{recrId})
+  </insert>
+  <select id="selectIdentys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recr_identity
+    where recr_id = #{recrId}
+    order by apply_dt desc
+  </select>
+  <select id="selectAllIdentys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recr_identity a
+    where apply_dt = (select max(apply_dt) from recr_identity b where a.recr_id=b.recr_id)
+    and result = #{result}
+    order by apply_dt;
+  </select>
+  <update id="updateIdenty" parameterType="shizhe.bean.RecrIdentity">
+    update recr_identity
+    <set>
+      <if test="describe != null">
+        `describe` = #{describe},
+      </if>
+      <if test="result != null">
+        `result` = #{result},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <select id="selectLastIdentity" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recr_identity
+    where recr_id = #{recrId}
+    order by apply_dt desc
+    limit 1
+  </select>
+</mapper>

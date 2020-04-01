@@ -1,6 +1,7 @@
 package shizhe.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * resume_file
@@ -13,11 +14,9 @@ public class ResumeFile implements Serializable {
 
     private String filepath;
 
-    private String upDt;
+    private Date upDt;
 
     private Integer userId;
-
-    private Integer status;
 
     private static final long serialVersionUID = 1L;
 
@@ -45,11 +44,11 @@ public class ResumeFile implements Serializable {
         this.filepath = filepath;
     }
 
-    public String getUpDt() {
+    public Date getUpDt() {
         return upDt;
     }
 
-    public void setUpDt(String upDt) {
+    public void setUpDt(Date upDt) {
         this.upDt = upDt;
     }
 
@@ -59,13 +58,5 @@ public class ResumeFile implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 }

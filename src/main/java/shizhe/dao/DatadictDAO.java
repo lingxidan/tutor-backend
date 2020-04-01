@@ -5,12 +5,12 @@ import org.springframework.stereotype.Repository;
 import shizhe.bean.Address;
 import shizhe.bean.Jobtype;
 import shizhe.bean.License;
-import shizhe.bean.Trade;
+import shizhe.bean.Company;
 
 import java.util.List;
 
 @Repository
-public interface DatadictDao {
+public interface DatadictDAO {
 
     // 地区
     int insertAddress(Address record);
@@ -20,9 +20,9 @@ public interface DatadictDao {
 
 
     // 公司行业
-    int insertTrade(Trade record);
+    int insertTrade(Company record);
     int deleteTrade();
-    List<Trade> selectTrade();
+    List<Company> selectTrade();
 
     // 职业类型
     int insertJobtype(Jobtype record);

@@ -1,6 +1,11 @@
 package shizhe.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * chat
@@ -13,7 +18,10 @@ public class Chat implements Serializable {
 
     private Integer toId;
 
-    private String dt;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date dt;
 
     private String content;
 
@@ -43,11 +51,11 @@ public class Chat implements Serializable {
         this.toId = toId;
     }
 
-    public String getDt() {
+    public Date getDt() {
         return dt;
     }
 
-    public void setDt(String dt) {
+    public void setDt(Date dt) {
         this.dt = dt;
     }
 

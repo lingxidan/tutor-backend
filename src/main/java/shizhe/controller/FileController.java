@@ -33,28 +33,24 @@ public class FileController {
     @PostMapping(value = "/upload")
     @ResponseBody
     public ApiResult uploadFile(@RequestParam("file") MultipartFile file,
-                                @RequestParam("userId") int userId) throws IOException {
+                                @RequestParam("userId") int userId,
+                                @RequestParam("frontPath") String frontPath) throws IOException {
         ApiResult<Object> result = new ApiResult<>();
-        ResumeFile resumeFile = fileService.transformToShow(file);
-        if(resumeFile.getStatus()==1) {
-            resumeFile.setUserId(userId);
-            resumeFile.setUpDt((new SimpleDateFormat("yyyy-MM-dd"/*你想要的格式*/)).format(new Date()));fileService.insertFile(resumeFile);
-            result.setStatus(StatusCode.SC_SUCCESS);
-            result.setData("成功");
-            return result;
-        }
-        result.setStatus(StatusCode.SC_SYS_ERROR);
-        result.setData("失败");
+        ResumeFile resumeFile = fileService.transformToShow(file,frontPath);
+        resumeFile.setUserId(userId);
+        resumeFile.setUpDt(new Date());
+        fileService.insertFile(resumeFile);
+        result.setStatus(StatusCode.SC_SUCCESS);
+        result.setData("成功");
         return result;
     }
 
     @ApiOperation(value = "筛选文件列表", produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping(value = "/selectByCondition")
     @ResponseBody
-    public ApiResult selectByCondition(@RequestParam("userId") String userId,
-                                String upDt){
+    public ApiResult selectByCondition(@RequestParam("userId") String userId){
         ApiResult<Object> result = new ApiResult<>();
-        List<ResumeFile> resumeFileList = fileService.selectByCondition(userId, upDt);
+        List<ResumeFile> resumeFileList = fileService.selectByCondition(userId);
         result.setStatus(StatusCode.SC_SUCCESS);
         result.setData(resumeFileList);
         return result;
@@ -68,17 +64,6 @@ public class FileController {
         ResumeFile file = fileService.selectById(id);
         result.setStatus(StatusCode.SC_SUCCESS);
         result.setData(file);
-        return result;
-    }
-
-    @ApiOperation(value = "更新文件状态", produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/updateFile")
-    @ResponseBody
-    public ApiResult updateFile(ResumeFile resumeFile){
-        ApiResult<Object> result = new ApiResult<>();
-        Long res=fileService.updateFile(resumeFile);
-        result.setStatus(StatusCode.SC_SUCCESS);
-        result.setData(res);
         return result;
     }
 
