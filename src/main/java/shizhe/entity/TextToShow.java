@@ -14,8 +14,8 @@ import java.io.IOException;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import com.sun.image.codec.jpeg.JPEGCodec;
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;
+//import com.sun.image.codec.jpeg.JPEGCodec;
 
 /**
  * 文本转图片类
@@ -71,37 +71,37 @@ public class TextToShow {
      */
     public boolean convert() {
 
-        //读取文本文件
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(textFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        //获取图像上下文
-        Graphics g = createGraphics(image);
-        String line;
-        //图片中文本行高
-        final int Y_LINEHEIGHT = 15;
-        int lineNum = 1;
-        try {
-            while((line = reader.readLine()) != null){
-                g.drawString(line, 0, lineNum * Y_LINEHEIGHT);
-                lineNum++;
-            }
-            g.dispose();
-
-            //保存为jpg图片
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(fos);
-            encoder.encode(image);
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+//        //读取文本文件
+//        BufferedReader reader = null;
+//        try {
+//            reader = new BufferedReader(new FileReader(textFile));
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//        //获取图像上下文
+//        Graphics g = createGraphics(image);
+//        String line;
+//        //图片中文本行高
+//        final int Y_LINEHEIGHT = 15;
+//        int lineNum = 1;
+//        try {
+//            while((line = reader.readLine()) != null){
+//                g.drawString(line, 0, lineNum * Y_LINEHEIGHT);
+//                lineNum++;
+//            }
+//            g.dispose();
+//
+//            //保存为jpg图片
+//            FileOutputStream fos = new FileOutputStream(imageFile);
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(fos);
+//            encoder.encode(image);
+//            fos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
         return true;
     }
 
